@@ -17,5 +17,6 @@ namespace Pomodoro_To_Do_List.Models
         public byte? TaskPomos { get; set; }
 
         public string TaskDescription { get; set; }
+        public bool Done { get; set; }
     }
 }

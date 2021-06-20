@@ -172,3 +172,9 @@ li:hover {
 button#done{
   margin-bottom: 2%;
 }
+.crossOut{
+  text-decoration: line-through;
+}
+.hide{
+  display: none;
+}

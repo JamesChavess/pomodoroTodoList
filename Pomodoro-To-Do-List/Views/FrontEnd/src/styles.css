@@ -163,7 +163,7 @@ li:hover {
   margin-top: 1%;
   background-image: url("../img/newTaskBg.svg");
 }
-#taskSelectedDescription{
+#taskSelectedDesc{
   font-size: 25px;
   color: white;
   text-align: center;
@@ -172,9 +172,13 @@ li:hover {
 button#done{
   margin-bottom: 2%;
 }
-.crossOut{
+span.dontCrossOut{
+  text-decoration: none !important;
+}
+li.crossOut{
   text-decoration: line-through;
 }
+
 .hide{
   display: none;
 }

@@ -1,34 +1,43 @@
-const taskName = document.getElementById("taskName");
-const taskDescription = document.getElementById("taskDescription");
-const addTaskBtn = document.getElementById("addTask");
-const todoListUL = document.getElementById("todoList");
-const newTaskSection = document.querySelector(".newTask");
-const taskSelected = document.getElementById("taskSelected");
-const taskSelectedName = document.getElementById("taskSelectedName");
-const taskSelectedDescription = document.getElementById(
-  "taskSelectedDescription"
-);
-const pomoTimeBtn = document.getElementById("pomoTimeBtn");
-const doneBtn = document.getElementById("done");
-const filterOptions = document.getElementById("nav").getElementsByTagName("b");
-const urlApi = "https://localhost:44321";
-let taskList = [];
+const taskName = document.getElementById("taskName"),
+taskDescription = document.getElementById("taskDescription"),
+addTaskBtn = document.getElementById("addTask"),
+todoListUL = document.getElementById("todoList"),
+newTaskSection = document.querySelector(".newTask"),
+taskSelected = document.getElementById("taskSelected"),
+taskSelectedName = document.getElementById("taskSelectedName"),
+taskSelectedDesc = document.getElementById("taskSelectedDesc"),
+pomoTimeBtn = document.getElementById("pomoTimeBtn"),
+doneBtn = document.getElementById("done"),
+filterOptions = document.getElementById("nav").getElementsByTagName("b"),
+urlApi = "https://localhost:44321";
+let taskSelectedId = 0,
+taskSelectedPomos = 0,
+taskList = [],
+startTimer,
+paused = true,
+firstTime = true;
 
 fetchRequest("ToDoLists", "Get", null, (list) => {
   list.forEach((task) => {
     let taskLi = document.createElement("li");
     taskLi.id = task.TaskName;
-    taskLi.innerText = task.TaskName;
+    taskLi.innerText = task.TaskName + `: ${task.TaskPomos} Pomodoros`;
     taskList.push(task);
     if (task.Done === true) {
       taskLi.classList.add("crossOut");
     }
     todoListUL.append(taskLi);
     taskLi.addEventListener("click", () => {
+      firstTime = true;
+      stopTimer(startTimer);
+      document.getElementById("minutes").innerText = 25;
+      document.getElementById("seconds").innerText = "00";
       newTaskSection.style.display = "none";
       taskSelected.style.display = "flex";
       taskSelectedName.innerText = task.TaskName;
-      taskSelectedDescription.innerText = task.TaskDescription;
+      taskSelectedDesc.innerText = task.TaskDescription;
+      taskSelectedId = task.IdTask;
+      taskSelectedPomos = task.TaskPomos;
       pomoTimeBtn.src = "./img/playBtn.svg";
 
       doneBtn.addEventListener("click", () => {
@@ -48,23 +57,62 @@ fetchRequest("ToDoLists", "Get", null, (list) => {
     });
   });
 });
-function countDown(minutes, seconds) {
-  setInterval(() => {
-    if (seconds.innerText < 1) {
-      seconds.innerHTML = 59;
-      minutes.innerText = `${minutes.innerText - 1}`;
-    } else if (seconds.innerText >= 1) {
-      seconds.innerHTML = `${seconds.innerText - 1}`;
-    }
-  }, 1000);
+
+function stopTimer(startTimer) {
+  let paused = true;
+  clearInterval(startTimer);
 }
 pomoTimeBtn.addEventListener("click", () => {
-  pomoTimeBtn.src = "./img/pauseBtn.svg";
-  const minutes = document.getElementById("minutes");
-  const seconds = document.getElementById("seconds");
-  console.log(minutes.innerText, seconds.innerText);
-  countDown(minutes, seconds);
+  if (firstTime) {
+    startTimer = setInterval(countDown, 1000);
+  } else {
+    clearInterval(startTimer);
+    startTimer = setInterval(countDown, 1000);
+  }
+  if (paused == true) {
+    pomoTimeBtn.src = "./img/pauseBtn.svg";
+    firstTime = false;
+    paused = false;
+  } else {
+    stopTimer(startTimer);
+    pomoTimeBtn.src = "./img/playBtn.svg";
+    paused = true;
+  }
 });
+
+function countDown() {
+  if (!paused) {
+    const m = document.getElementById("minutes");
+    const s = document.getElementById("seconds");
+    if (s.innerText == 00 && m.innerText == 00) {
+      stopTimer(startTimer);
+      console.log('reset timer "PUT" method to link pomos to task ');
+      console.log(taskSelectedName);
+      console.log(taskSelectedDesc);
+      fetchRequest(
+        "ToDoLists/" + taskSelectedId,
+        "PUT",
+        {
+          IdTask: taskSelectedId,
+          TaskName: taskSelectedName.innerText,
+          TaskPomos: `${taskSelectedPomos + 1}`,
+          TaskDescription: taskSelectedDesc.innerText,
+          Done: false,
+        },
+        () => location.reload()
+      );
+    } else if (s.innerText > 10) {
+      s.innerHTML = `${s.innerText - 1}`;
+    } else if (s.innerText <= 10 && s.innerText >= 1) {
+      s.innerHTML = "0" + `${s.innerText - 1}`;
+    } else if (s.innerText < 1) {
+      s.innerHTML = 59;
+      m.innerText = `${m.innerText - 1}`;
+    } else if (m.innerText <= 10 && m.innerText >= 1) {
+      m.innerHTML = "0" + `${m.innerText - 1}`;
+    }
+  }
+}
 function currentDate() {
   const currMonth = document.getElementById("month");
   const currDay = document.getElementById("day");
@@ -140,7 +188,6 @@ addTaskBtn.addEventListener("click", () => {
         TaskDescription: taskDescription.value,
       },
       (data) => {
-        console.log("call back executes", data);
         location.reload();
       }
     );
@@ -202,4 +249,3 @@ Array.from(filterOptions).forEach((option) => {
     }
   });
 });
-console.log(Array.from(filterOptions));

@@ -1,0 +1,184 @@
+body {
+  font-family: sans-serif;
+  background: #222231;
+}
+* {
+  margin: 0;
+  font-family: "Reenie Beanie", cursive;
+}
+main {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+}
+#leftSide {
+  flex: 1 1 40%;
+  height: 100%;
+  border-left: 12px solid #1fb9d5;
+  border-right: 12px solid lightgrey;
+  position: relative;
+}
+section.newTask {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+  background-image: url("../img/newTaskBg.svg");
+}
+.date {
+  font-size: 30px;
+  text-align: center;
+}
+.bigText {
+  font-size: 60px;
+}
+.blue {
+  color: #1fb9d5;
+}
+.white {
+  color: white;
+}
+#leftSide input {
+  margin-top: 30px;
+}
+#taskName {
+  background: white;
+  border-radius: 5px;
+  margin-left: 4%;
+  width: 90%;
+  height: 35px;
+  font-size: 30px;
+}
+#taskName::placeholder {
+  padding-left: 20px;
+  font-size: 20px;
+}
+#taskDescription {
+  font-size: 30px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 4%;
+  margin-left: 4%;
+  width: 90%;
+  height: 135px;
+}
+#taskDescription::placeholder {
+  padding-left: 20px;
+  font-size: 20px;
+}
+button{
+  margin: 2% 5% 0 65%;
+  background: #222231;
+  color: #1fb9d5;
+  border: 1px solid #1fb9d5;
+  width: 30%;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+button:hover {
+  cursor: pointer;
+}
+
+section.pomoTimer {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+section.pomoTimer #pomoTimeBtn{
+  height: 100px;
+  cursor: pointer;
+}
+
+section.pomoTimer span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+h3 {
+  margin: 15px;
+}
+#timeLeft {
+  margin-top: 5%;
+  font-size: 100px;
+}
+#rightSide {
+  margin-left: 10%;
+  flex: 1 1 60%;
+}
+#rightSide header {
+  margin-top: 20px;
+  text-align: center;
+}
+#rightSide section.todoList {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  min-height: 102vh;
+  background-image: url("..//img/todoListBg.svg");
+  background-size: cover;
+  background-repeat: repeat-y;
+}
+#rightSide nav{
+  margin: 40px 0 40px 80px;
+}
+#rightSide nav b {
+  margin: 0 20px 0 10px;
+  text-align: left;
+  font-size: 30px;
+  color: #8a8a8a;
+}
+#rightSide nav b:hover {
+  color: #f1bf22;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-decoration-thickness: 4px;
+}
+ul#todoList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: left;
+  color: white;
+  text-decoration: none;
+  list-style: none;
+}
+li{
+  margin: 20px 0 0 60px;
+  font-size: 40px;
+}
+li:hover {
+  color: #f1bf22;
+  cursor: pointer;
+}
+#taskSelected{
+  font-size: 35px;
+  display:none;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-around;
+  min-height: 250px;
+  margin-top: 1%;
+  background-image: url("../img/newTaskBg.svg");
+}
+#taskSelectedDesc{
+  font-size: 25px;
+  color: white;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+button#done{
+  margin-bottom: 2%;
+}
+span.dontCrossOut{
+  text-decoration: none !important;
+}
+li.crossOut{
+  text-decoration: line-through;
+}
+
+.hide{
+  display: none;
+}

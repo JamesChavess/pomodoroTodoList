@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro-To-Do-List</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <main id="main">
+      <aside id="leftSide">
+        <header class="date"> 
+          <b class="white" id="month"></b>
+          <b class="blue" id="day"></b>
+          <b class="white" id="year"></b>
+         </header>
+         <section id="taskSelected">
+          <h1 class="blue" id="taskSelectedName"></h1>
+          <span id="taskSelectedDesc"></span>
+          <button id="done">Done</button>
+         </section>
+        <section class="newTask" >
+          <input id="taskName" placeholder="New Task . . ."></input>
+          <textarea id="taskDescription" placeholder="Description . . ."></textarea>
+          <button id="addTask">Add Task</button>
+        </section>
+
+        <section class="pomoTimer">
+          <span id="timeLeft" class="blue">
+              <b id="minutes">10</b> <b>:</b> <b id="seconds">11</b>
+          </span>
+          <img id="pomoTimeBtn" src="./img/nonActivePlayBtn.svg" alt="" />
+          <span> 
+            <h3 class="blue bigText">Simple </h3>
+            <h3 class="white bigText"> Pomodoro</h3>
+         </span>
+        </section>
+      </aside>
+      <aside id="rightSide">
+        <section class="todoList">
+          <header class="bigText">
+            <span class="blue">Simple</span> <span class="white">ToDo</span> <span class="white">List</span> 
+          </header>
+          <nav id="nav"> <b id="allFilter">All</b> <b id="todoFilter">To Do</b> <b id="doneFilter">Done</b> </nav>
+          <ul id="todoList">
+
+          </ul>
+        </section>
+      </aside>
+    </main>
+    <footer id="footer"></footer> 
+    <script src="src/script.js"></script>
+  </body>
+</html>
